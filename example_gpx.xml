@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx creator="StravaGPX" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" xmlns="http://www.topografix.com/GPX/1/1">
+ <metadata>
+  <time>{{START_TIME}}</time>
+ </metadata>
+ <trk>
+  <trkseg>
+
+   <trkpt lat="50.6098760" lon="-1.1954480">
+    <ele>181.5</ele>
+    <time>2019-02-03T11:29:59Z</time>
+   </trkpt>
+   <trkpt lat="50.6098870" lon="-1.1954340">
+    <ele>181.7</ele>
+    <time>2019-02-03T11:30:00Z</time>
+   </trkpt>
+
+  </trkseg>
+ </trk>
+</gpx>
