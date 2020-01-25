@@ -1,0 +1,28 @@
+openapi: "3.0.1"
+info:
+  title: '${deployment_name} API'
+  version: "1.0"
+servers:
+- url: '$${api_base_url}'
+  variables:
+    basePath:
+      default: "/prod"
+paths:
+  /gpx:
+    get:
+      responses:
+        200:
+          description: "200 response"
+          content:
+            application/gpx+xml:
+              schema:
+                type: object
+      x-amazon-apigateway-integration:
+        uri: "${lambda_make_gpx_arn}"
+        responses:
+          default:
+            statusCode: "200"
+        httpMethod: "POST"
+        credentials: '${lambda_exec_role_arn}'
+        contentHandling: "CONVERT_TO_TEXT"
+        type: "aws_proxy"

@@ -5,7 +5,7 @@ from functools import reduce
 from itertools import accumulate
 
 
-def lambda_handler(event, context):
+def handler(event, context):
     print(json.dumps(event))
 
     query = event.get("queryStringParameters", {})
@@ -33,7 +33,11 @@ def lambda_handler(event, context):
 
     return {
         'statusCode': 200,
-        'body': gpx_string
+        'body': gpx_string,
+        'headers': {
+            'Content-Type': 'application/gpx+xml',
+            'Content-Disposition': "attachment; filename=whos-an-awesome-drongo.gpx"
+        }
     }
 
 
