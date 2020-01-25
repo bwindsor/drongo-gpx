@@ -24,6 +24,6 @@ data "template_file" "index_html" {
   template = file("../index.html")
 
   vars = {
-    API_INVOKE_URL = "${module.api.api_invoke_url}"
+    API_INVOKE_URL = module.api.api_invoke_url
   }
 }

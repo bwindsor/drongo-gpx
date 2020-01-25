@@ -3,7 +3,7 @@ data "archive_file" "lambda_function_make_gpx" {
     output_path = "artifacts/lambda_make_gpx.zip"
 
     source {
-      content = "${file("../make_gpx.py")}"
+      content = file("../make_gpx.py")
       filename = "make_gpx.py"
     }
 }

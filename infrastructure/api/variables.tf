@@ -8,12 +8,12 @@ variable "lambda_make_gpx_arn" {
 }
 
 variable "lambda_arns" {
-  type = list
+  type = list(string)
   description = "List of Lambda ARNs which API gateway should have permission to invoke"
 }
 
 variable "layers" {
   description = "Lambda layer ARNs to use"
-  type = list
+  type = list(string)
   default = []
 }

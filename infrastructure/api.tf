@@ -1,10 +1,10 @@
 module api {
   source = "./api"
 
-  deployment_name = "${local.deployment_name}"
-  lambda_arns = ["${aws_lambda_function.lambda_make_gpx.arn}"]
+  deployment_name = local.deployment_name
+  lambda_arns = [aws_lambda_function.lambda_make_gpx.arn]
   layers = []
-  lambda_make_gpx_arn = "${aws_lambda_function.lambda_make_gpx.invoke_arn}"
+  lambda_make_gpx_arn = aws_lambda_function.lambda_make_gpx.invoke_arn
 }
 
 /* Permission on lambda's end to allow API gateway to invoke it */

@@ -16,12 +16,12 @@ resource "aws_api_gateway_deployment" "api-deployment" {
     stage_name  = local.stage_name
 
     variables = {
-      "api_spec_hash" = "${sha256(data.template_file.api-spec.rendered)}"
+      "api_spec_hash" = sha256(data.template_file.api-spec.rendered)
     }
 }
 
 data "template_file" "api-spec" {
-    template = "${file("${path.module}/api_spec.yaml")}"
+    template = file("${path.module}/api_spec.yaml")
 
     vars = {
         deployment_name = var.deployment_name
