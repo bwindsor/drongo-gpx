@@ -3,20 +3,93 @@ info:
   title: '${deployment_name} API'
   version: "1.0"
 servers:
-- url: '$${api_base_url}'
-  variables:
-    basePath:
-      default: "/prod"
+  - url: '$${api_base_url}'
+
 paths:
   /gpx:
     get:
+      parameters:
+        - in: query
+          name: lat
+          schema:
+            type: number
+            minimum: -90
+            maximum: 90
+            example: 51.2
+          description: "Latitude of the track, in decimal degrees between -90 and +90"
+          required: true
+        - in: query
+          name: lon
+          schema:
+            type: number
+            minimum: -180
+            maximum: 180
+            example: -1.3
+          description: "Longitude of the track, in decimal degrees between -180 and +180"
+          required: true
+        - in: query
+          name: start_time
+          schema:
+            type: string
+            pattern: '^\d{4}\d{2}\d{2}\d{2}\d{2}\d{2}?$'
+            example: 20191225120000
+          description: The time at which the activity started, in format YYYYMMDDHHMM or YYYYMMDDHHMMSS
+          required: true
+        - in: query
+          name: length
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 1000000
+            default: 10000
+          required: false
+          description: The length of the GPS track, in metres
+        - in: query
+          name: hours
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 48
+            default: 0
+          required: false
+          description: The integer number of hours in the activity duration
+        - in: query
+          name: minutes
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 60
+            default: 0
+          required: false
+          description: The integer number of minutes in the activity duration
+        - in: query
+          name: seconds
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 60
+            default: 0
+          required: false
+          description: The integer number of seconds in the activity duration
       responses:
         200:
-          description: "200 response"
+          description: "200 Success"
           content:
             application/gpx+xml:
               schema:
                 type: object
+        400:
+          description: "400 Bad Request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Bad request"
+                required:
+                  - message
       x-amazon-apigateway-integration:
         uri: "${lambda_make_gpx_arn}"
         responses:

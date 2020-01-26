@@ -5,7 +5,7 @@ locals {
 
 resource "aws_api_gateway_rest_api" "api" {
     name        = "${var.deployment_name} API"
-    description = "API for SpeedCube"
+    description = "API for DrongO GPX"
     body        = data.template_file.api-spec.rendered
 }
 

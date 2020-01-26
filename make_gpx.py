@@ -1,3 +1,4 @@
+import re
 import json
 import datetime
 import math
@@ -10,24 +11,87 @@ def handler(event, context):
 
     query = event.get("queryStringParameters", {})
 
-    length_metres = int(query.get("length", "10000"))
-    start_time = datetime.datetime.strptime(query["start_time"], '%Y%m%d%H%M')
-    hours = int(query.get("hours", "0"))
-    minutes = int(query.get("minutes", "0"))
-    duration = datetime.timedelta(hours=hours) + datetime.timedelta(minutes=minutes)
-    if duration == datetime.timedelta(seconds=0):
-        raise Exception("Duration cannot be zero")
+    # parameter: lat
+    if "lat" not in query:
+        return make_bad_request_response("Missing required parameter lat")
+    try:
+        lat = float(query["lat"])
+    except ValueError:
+        return make_bad_request_response("lat must be a number")
+    if lat < -90:
+        return make_bad_request_response("lat must be >= -90")
+    if lat > 90:
+        return make_bad_request_response("lat must be <= 90")
 
-    lat = float(query["lat"])
-    lon = float(query["lon"])
+    # parameter: lon
+    if "lon" not in query:
+        return make_bad_request_response("Missing required parameter lon")
+    try:
+        lon = float(query["lon"])
+    except ValueError:
+        return make_bad_request_response("lon must be a number")
+    if lon > 180:
+        return make_bad_request_response("lon must be <= 180")
+    if lon < -180:
+        return make_bad_request_response("lon must be >= -180")
 
-    assert length_metres > 0
-    assert length_metres < 1000000
-    assert duration.total_seconds() < 86400 * 10
-    assert lat >= -90
-    assert lat <= 90
-    assert lon <= 180
-    assert lon >= -180
+    # parameter: start_time
+    if "start_time" not in query:
+        return make_bad_request_response("Missing required parameter start_time")
+    date_format = re.compile(r'^\d{4}\d{2}\d{2}\d{2}\d{2}(\d{2})?$')
+    if not date_format.match(query["start_time"]):
+        return make_bad_request_response("start_time format does not match YYYYMMDDHHMM or YYYYMMDDHHSS")
+    try:
+        start_time = datetime.datetime.strptime(query["start_time"], '%Y%m%d%H%M')
+    except ValueError:
+        try:
+            start_time = datetime.datetime.strptime(query["start_time"], '%Y%m%d%H%M%S')
+        except ValueError:
+            return make_bad_request_response("start_time format does not match YYYYMMDDHHMM or YYYYMMDDHHSS")
+
+    # parameter: length
+    try:
+        length_metres = int(query.get("length", "10000"))
+    except ValueError:
+        return make_bad_request_response("length must be an integer")
+    if length_metres <= 0:
+        return make_bad_request_response("length must be > 0")
+    if length_metres > 1000000:
+        return make_bad_request_response("length must be < 1000000")
+
+    # parameter: hours
+    try:
+        hours = int(query.get("hours", "0"))
+    except ValueError:
+        return make_bad_request_response("hours must be an integer")
+    if hours < 0:
+        return make_bad_request_response("hours must be >= 0")
+
+    # parameter: minutes
+    try:
+        minutes = int(query.get("minutes", "0"))
+    except ValueError:
+        return make_bad_request_response("minutes must be an integer")
+    if minutes < 0:
+        return make_bad_request_response("minutes must be >= 0")
+    if minutes > 60:
+        return make_bad_request_response("minutes must be <= 60")
+
+    # parameter: seconds
+    try:
+        seconds = int(query.get("seconds", "0"))
+    except ValueError:
+        return make_bad_request_response("seconds must be an integer")
+    if seconds < 0:
+        return make_bad_request_response("seconds must be >= 0")
+    if seconds > 60:
+        return make_bad_request_response("seconds must be <= 60")
+
+    duration = datetime.timedelta(hours=hours) + datetime.timedelta(minutes=minutes) + datetime.timedelta(seconds=seconds)
+    if duration < datetime.timedelta(seconds=10):
+        return make_bad_request_response("Total duration (hours+minutes+seconds) must be at least 10 seconds")
+    if duration > datetime.timedelta(days=2):
+        return make_bad_request_response("Total activity duration should be <= 48 hours")
 
     gpx_string = make_gpx(length_metres, start_time, duration, lat, lon)
 
@@ -37,6 +101,16 @@ def handler(event, context):
         'headers': {
             'Content-Type': 'application/gpx+xml',
             'Content-Disposition': "attachment; filename=whos-an-awesome-drongo.gpx"
+        }
+    }
+
+
+def make_bad_request_response(message: str) -> dict:
+    return {
+        'statusCode': 400,
+        'body': json.dumps({"message": message}),
+        'headers': {
+            'Content-Type': 'application/json'
         }
     }
 
