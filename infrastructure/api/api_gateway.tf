@@ -27,6 +27,7 @@ data "template_file" "api-spec" {
         deployment_name = var.deployment_name
         lambda_exec_role_arn = aws_iam_role.iam_for_api_gateway.arn
         lambda_make_gpx_arn = var.lambda_make_gpx_arn
+        lambda_shift_purple_pen_arn = var.lambda_shift_purple_pen_arn
     }
 }
 

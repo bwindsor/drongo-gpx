@@ -99,3 +99,33 @@ paths:
         credentials: '${lambda_exec_role_arn}'
         contentHandling: "CONVERT_TO_TEXT"
         type: "aws_proxy"
+  /shiftpurplepen:
+    post:
+      responses:
+        200:
+          description: "200 Success"
+          content:
+            application/xml:
+              schema:
+                type: object
+        400:
+          description: "400 Bad Request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Bad request"
+                required:
+                  - message
+      x-amazon-apigateway-integration:
+        uri: "${lambda_shift_purple_pen_arn}"
+        responses:
+          default:
+            statusCode: "200"
+        httpMethod: "POST"
+        credentials: '${lambda_exec_role_arn}'
+        contentHandling: "CONVERT_TO_TEXT"
+        type: "aws_proxy"

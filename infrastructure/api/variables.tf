@@ -7,6 +7,10 @@ variable "lambda_make_gpx_arn" {
   type = string
 }
 
+variable "lambda_shift_purple_pen_arn" {
+  type = string
+}
+
 variable "lambda_arns" {
   type = list(string)
   description = "List of Lambda ARNs which API gateway should have permission to invoke"

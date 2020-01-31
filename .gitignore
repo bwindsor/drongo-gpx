@@ -1,2 +1,4 @@
 .idea 
 infrastructure/artifacts 
+__pycache__ 
+output.ppen 

@@ -1,0 +1,79 @@
+﻿<course-scribe-event>
+  <event id="1">
+    <title>Quad Match 2020</title>
+    <map kind="OCAD" scale="10000" ignore-missing-fonts="false" absolute-path="C:\Users\BenJW\Dropbox\BenWindsor\Documents\Interests\Orienteering\Events\2020-05 Epping Quad Match\EE Nov 2019 ISOM OCAD 2019 v4.ocd">..\..\..\Interests\Orienteering\Events\2020-05 Epping Quad Match\EE Nov 2019 ISOM OCAD 2019 v4.ocd</map>
+    <standards map="2017" description="2018" />
+    <all-controls print-scale="10000" description-kind="symbols" />
+    <print-area automatic="false" restrict-to-page-size="true" left="-74.15886" top="195.8901" right="127.771149" bottom="-92.9079" page-width="827" page-height="1169" page-margins="16" page-landscape="false" />
+    <numbering start="31" disallow-invertible="false" />
+    <punch-card rows="3" columns="8" left-to-right="true" top-to-bottom="false" />
+    <course-appearance scale-sizes="RelativeTo15000" scale-sizes-circle-gaps="true" auto-leg-gap-size="3.5" blend-purple="true" />
+    <descriptions lang="en-GB" color="black" />
+    <ocad overprint-colors="false" />
+  </event>
+  <control id="1" kind="start">
+    <location x="85.63277" y="147.492142" />
+    <description box="D" iof-2004-ref="5.2" />
+  </control>
+  <control id="2" kind="finish">
+    <location x="88.31481" y="153.8992" />
+    <description box="all" iof-2004-ref="14.3" />
+  </control>
+  <control id="3" kind="normal">
+    <code>31</code>
+    <location x="95.46076" y="135.130157" />
+    <description box="D" iof-2004-ref="5.2" />
+    <description box="F" iof-2004-ref="10.2" />
+  </control>
+  <control id="15" kind="normal">
+    <code>37</code>
+    <location x="71.8275" y="139.9188" />
+    <description box="D" iof-2004-ref="5.2" />
+    <description box="E" iof-2004-ref="3.6" />
+    <description box="F" iof-2004-ref="10.1" />
+  </control>
+  <control id="42" kind="normal">
+    <code>38</code>
+    <location x="80.2943" y="148.285324" />
+    <description box="D" iof-2004-ref="5.2" />
+  </control>
+  <course id="1" kind="normal" order="1">
+    <name>Yellow</name>
+    <labels label-kind="sequence" />
+    <first course-control="1" />
+    <print-area automatic="false" restrict-to-page-size="true" left="-74.15886" top="195.8901" right="127.771149" bottom="-92.9079" page-width="827" page-height="1169" page-margins="16" page-landscape="false" />
+    <options print-scale="10000" description-kind="symbols" />
+  </course>
+  <course-control id="1" control="1">
+    <next course-control="7" />
+  </course-control>
+  <course-control id="2" control="2" />
+  <course-control id="7" control="3">
+    <next course-control="19" />
+  </course-control>
+  <course-control id="19" control="15">
+    <next course-control="2" />
+  </course-control>
+  <special-object id="1" kind="descriptions">
+    <appearance columns="2" />
+    <location x="-1.00035858" y="2.0887146" />
+    <location x="5.084303" y="2.0887146" />
+    <courses all="true" />
+  </special-object>
+  <special-object id="2" kind="text">
+    <text>$(CourseName)</text>
+    <font name="Roboto" bold="true" italic="false" />
+    <appearance color="purple" />
+    <location x="102.2344" y="2.537117" />
+    <location x="157.146332" y="-20.954422" />
+    <courses all="true" />
+  </special-object>
+  <special-object id="3" kind="text">
+    <text>Courses close 20:00</text>
+    <font name="Roboto" bold="true" italic="false" />
+    <appearance color="purple" />
+    <location x="102.5395" y="-17.9026871" />
+    <location x="157.146332" y="-26.14064" />
+    <courses all="true" />
+  </special-object>
+</course-scribe-event>

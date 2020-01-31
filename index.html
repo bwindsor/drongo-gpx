@@ -1,72 +1,99 @@
 <!--https://4z4c52y65i.execute-api.eu-west-1.amazonaws.com/prod/gpx?length=10000&start_time=201909161500&hours=1&minutes=0&lat=51.34&lon=-1.1322-->
 <html lang="en">
 <head>
-	<title>DrongO GPX</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-html {
-	color: darkblue;
-	font-family: sans-serif;
-}
-label {
-	display: inline-block;
-	width: 100%;
-}
-form {
-	width: 100%;
-	max-width: 300px;
-}
-input {
-	width: 100%;
-	padding: 2px;
-	margin-top: 2px;
-	margin-bottom: 2px;
-	border-radius: 3px;
-	border: 1px solid darkblue;
-	color: darkblue;
-	background-color: lightblue;
-}
-.narrow {
-	width: 26%;
-	margin-right: 2px;
-}
-.submit {
-	margin-top: 8px;
-	width: 100%;
-}
-</style>
+    <title>DrongO GPX</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        html {
+            color: darkblue;
+            font-family: sans-serif;
+        }
+
+        label {
+            display: inline-block;
+            width: 100%;
+        }
+
+        form {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        input {
+            width: 100%;
+            padding: 2px;
+            margin-top: 2px;
+            margin-bottom: 2px;
+            border-radius: 3px;
+            border: 1px solid darkblue;
+            color: darkblue;
+            background-color: lightblue;
+        }
+
+        .narrow {
+            width: 26%;
+            margin-right: 2px;
+        }
+
+        .submit {
+            margin-top: 8px;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-	<form method="GET" action="${API_INVOKE_URL}/gpx">
-		<div>
-			<label for="length">Length (metres)</label>
-			<br/>
-			<input name="length" id="length" placeholder="e.g. 10000">
-		</div>
-	<div>
-			<label for="start_time">Start time (YYYYMMDDHHMM)</label>
-			<br/>
-			<input name="start_time" id="start_time" placeholder="e.g. 201909201332">
-		</div>
-		<div>
-			<label for="hours">Duration</label>
-			<br/>
-			<input name="hours" id="hours" placeholder="e.g. 1" class="narrow">h :
-			<input name="minutes" id="minutes" placeholder="e.g. 33" class="narrow">m :
-			<input name="seconds" id="seconds" placeholder="e.g. 33" class="narrow" value="0">s
-		</div>
-		<div>
-			<label for="lat">Latitude</label>
-			<br/>
-			<input name="lat" id="lat" placeholder="e.g. 51.342243">
-		</div>
-		<div>
-			<label for="lon">Longitude</label>
-			<br/>
-			<input name="lon" id="lon" placeholder="e.g. -1.3442223">
-		</div>
+<h3>DrongO GPX</h3>
+<form method="GET" action="${API_INVOKE_URL}/gpx">
+    <div>
+        <label for="length">Length (metres)</label>
+        <br/>
+        <input name="length" id="length" placeholder="e.g. 10000">
+    </div>
+    <div>
+        <label for="start_time">Start time (YYYYMMDDHHMM)</label>
+        <br/>
+        <input name="start_time" id="start_time" placeholder="e.g. 201909201332">
+    </div>
+    <div>
+        <label for="hours">Duration</label>
+        <br/>
+        <input name="hours" id="hours" placeholder="e.g. 1" class="narrow">h :
+        <input name="minutes" id="minutes" placeholder="e.g. 33" class="narrow">m :
+        <input name="seconds" id="seconds" placeholder="e.g. 33" class="narrow" value="0">s
+    </div>
+    <div>
+        <label for="lat">Latitude</label>
+        <br/>
+        <input name="lat" id="lat" placeholder="e.g. 51.342243">
+    </div>
+    <div>
+        <label for="lon">Longitude</label>
+        <br/>
+        <input name="lon" id="lon" placeholder="e.g. -1.3442223">
+    </div>
 
-		<input type="submit" class="submit" value="Get me a DrongO track!">
-	</form>
+    <input type="submit" class="submit" value="Get me a DrongO track!">
+</form>
+<h3>Shift PurplePen file</h3>
+<form method="POST" enctype="multipart/form-data" action="${API_INVOKE_URL}/shiftpurplepen">
+    <div>
+        <label for="controlcode">Reference moved control code</label>
+        <br/>
+        <input name="controlcode" id="controlcode" placeholder="e.g. 31">
+    </div>
+	<div>
+		<label for="originalfile">Original PurplePen file</label>
+		<br/>
+		<input name="originalfile" id="originalfile" type="file">
+	</div>
+	<div>
+		<label for="shiftedfile">PurplePen file with specified control shifted to correct location</label>
+		<br/>
+		<input name="shiftedfile" id="shiftedfile" type="file">
+	</div>
+
+    <input type="submit" class="submit" value="Shift my PurplePen file!">
+</form>
+
 </body>
 </html>
